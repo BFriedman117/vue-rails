@@ -10,7 +10,7 @@
         <h3>Search For Films</h3>
         <span style="min-width: 500px;">
           <input placeholder="Search..." v-model="queryText" @keypress.enter="query" style="min-width: 400px; min-height: 20px;"/>
-          <button @click="query" style="width: 80px; padding: 5px 0px;">Search</button>
+          <button class="button" @click="query" style="width: 80px; padding: 5px 0px;">Search</button>
         </span>
       </div>
 
@@ -19,14 +19,15 @@
           <span class="film-card" v-if="film.Response === 'True'">
             <img :src="film.Poster.length ? film.Poster : noPosterURL" class="film-poster"/>
             <div class="film-info">
-              <h2>{{ film.Title }}</h2>
+              <h3>{{ film.Title }}</h3>
               <p>{{ film.Plot }}</p>
+              <button class="button">Add To Favorites</button>
             </div>
           </span>
           <span class="film-card" v-else>
             <img :src="noPosterURL"/>
             <div class="film-info">
-              <h2>Not Found :(</h2>
+              <h3>Not Found :(</h3>
               <p>Try again.</p>
             </div>
           </span>
@@ -64,6 +65,10 @@
     justify-content: center;
   }
 
+  .button:hover {
+    cursor: pointer;
+  }
+
   .film {
     max-width: 500px;
     max-height: 300px;
@@ -73,6 +78,7 @@
   .film-card {
     display: flex;
     flex-direction: row;
+    padding-right: 5px;
     background-color: #eaeaea;
   }
 
