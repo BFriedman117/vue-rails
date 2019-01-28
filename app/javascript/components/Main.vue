@@ -1,67 +1,67 @@
 <template>
   <div class="centered">
     <div>
-      <div>
-        <h1>Ben's Terrible Web App</h1>
-        <p>What are you doing here? Get the heck off my app!!</p>
-      </div>
-
-      <div>
-        <h3>Search For Films</h3>
-        <span style="min-width: 500px;">
-          <input placeholder="Search..." v-model="queryText" @keypress.enter="query" style="min-width: 400px; min-height: 20px;"/>
-          <button class="button" @click="query" style="width: 80px; padding: 5px 0px;">Search</button>
-        </span>
-      </div>
-
-      <div>
-        <div v-for="film in films" class="film">
-          <span class="film-card" v-if="film.Response === 'True'">
-            <img :src="film.Poster.length ? film.Poster : noPosterURL" class="film-poster"/>
-            <div class="film-info">
-              <h3>{{ film.Title }}</h3>
-              <p>{{ film.Plot }}</p>
-              <button class="button">Add To Favorites</button>
-            </div>
-          </span>
-          <span class="film-card" v-else>
-            <img :src="noPosterURL"/>
-            <div class="film-info">
-              <h3>Not Found :(</h3>
-              <p>Try again.</p>
-            </div>
-          </span>
-        </div>
-      </div>
-
+      <h1>Bad Apples</h1>
+      <p>Rotten Tomatoes, but worse!</p>
     </div>
+    <Navbar :components="components" @update-component="updateComponent"></Navbar>
+    <component :is="this.component" @></component>
   </div>
 </template>
 <script>
   import axios from 'axios'
+  import Navbar from './Navbar'
+  import Search from './Search/Search'
   export default {
+    components: {
+      Search,
+      Navbar
+    },
     data () {
       return {
-        queryText: '',
-        films: [],
-        noPosterURL: "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png"
+        users: [],
+        favorites: [],
+        comments: [],
+        component: 'Search',
+        components: ['Search']
       }
     },
     methods: {
-      query () {
-        this.films = []
-        let key = '14a71611'
-        axios.get(`http://www.omdbapi.com/?apikey=${key}&t=${this.queryText}`).then(res => {
-          this.queryText = ''
-          this.films.push(res.data)
+      updateComponent (component) {
+        this.component = component
+      },
+      fetchUsers () {
+        return axios.get(`http://localhost:3000/users`).then(res => {
+          console.log('got users', res.data)
+          this.users = res.data
+        })
+      },
+      fetchFavorites () {
+        return axios.get(`http://localhost:3000/favorites`).then(res => {
+          console.log('got favorites', res.data)
+          this.favorites = res.data
+        })
+      },
+      fetchComments () {
+        return axios.get(`http://localhost:3000/comments`).then(res => {
+          console.log('got comments', res.data)
+          this.comments = res.data
         })
       }
+    },
+    created () {
+      Promise.all([
+        // this.fetchUsers(),
+        this.fetchFavorites(),
+        this.fetchComments()
+      ]).then(() => console.log('all done!'))
     }
   }
 </script>
 <style scoped>
   .centered {
     display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 
