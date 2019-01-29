@@ -8,7 +8,9 @@ Simple web app that allows users to query a movie database and save a list of fa
 
 `rake db:create` and then `rake db:migrate` to set up the database.
 
-In two separate terminal windows, run `rails s` (to start the Rails server) and `bin/webpack-dev-server` to start the Vue front-end.
+In two separate terminal windows, run `rails s` (to start the Rails server) and `bin/webpack-dev-server` (to start the Vue front-end server).
+
+The app is now running on localhost:3000.
 
 # Improvements
 
