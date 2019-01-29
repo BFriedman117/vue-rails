@@ -1,11 +1,22 @@
 <template>
-  <div class="centered">
-    <div>
-      <h1>Bad Apples</h1>
-      <p>Rotten Tomatoes, but worse!</p>
+  <div class="main">
+    <div class="header">
+      <div>
+        <h1 class="header-main">Bad Apples!</h1>
+      </div>
+      <div class="header-searchbar">
+        <div class="input-group">
+          <input class="searchbar" placeholder="Search for films..."/>
+          <div class="button-container">
+            <button class="searchbar-button">&#x1f50d</button>
+          </div>
+        </div>
+      </div>
     </div>
     <Navbar :components="components" @update-component="updateComponent"></Navbar>
-    <component :is="this.component" :favorites="favorites"></component>
+    <div class="centered">
+      <component :is="this.component" :favorites="favorites"></component>
+    </div>
   </div>
 </template>
 <script>
@@ -61,10 +72,74 @@
   }
 </script>
 <style scoped>
+
+  .main {
+    margin: 0 20%;
+    background-color: white;
+    height: 100vh;
+  }
+
+  .header {
+    background-color: #FA320A;
+    color: white;
+    padding: 1px 15px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .header-main {
+    font-family: "Impact";
+    font-size: 40px;
+  }
+
+  .header-sub {
+    font-family: "Impact"
+  }
+
+  .header-searchbar {
+    margin: 30px 30px;
+  }
+
+  .input-group {
+    display: table;
+    border-radius: 5px;
+    vertical-align: middle;
+  }
+
+  .searchbar {
+    display: table-cell;
+    height: 32px;
+    width: 400px;
+    padding: 3px 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+  }
+
+  .button-container {
+      display: table-cell;
+  }
+
+  .searchbar-button {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.25;
+    padding: 9px 6px;
+    border: none;
+    border-radius: 5px;
+    margin: 2px;
+    margin-bottom: 5px;
+    font-family: "Impact";
+    cursor: pointer;
+  }
+
   .centered {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
   }
 
   .button:hover {

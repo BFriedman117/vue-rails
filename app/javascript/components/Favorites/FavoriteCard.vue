@@ -3,7 +3,10 @@
     <FilmCard :film="currentFilm" v-if="currentFilm"></FilmCard>
     <div>
       <span>
-        <h5>Your Score</h5>
+        <h5>Your Score:</h5>
+      </span>
+      <span>
+        <input type="range" step=".5" min=".5" max="5" v-model="rating"/>
       </span>
     </div>
   </div>
@@ -35,7 +38,11 @@
         })
       },
       populateData () {
-        t
+        let temp = Object.assign({}, this.favorite)
+        this.rating = temp.rating
+        // TODO: Connect comments, possibly move into 'favorites'
+        // this.text = temp.string
+        // TODO: Change 'string' field in comments to more descriptive 'text'
       }
     },
     created () {

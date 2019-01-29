@@ -21,6 +21,7 @@
   import axios from 'axios'
   import FilmCard from '../Films/FilmCard'
   export default {
+    props: ['favorites'],
     components: {
       FilmCard
     },
