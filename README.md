@@ -14,7 +14,7 @@ A simple way to accomplish this is to `brew install httpie` (which allows you to
 
 In two separate terminal windows, run `rails s` (to start the Rails server) and `bin/webpack-dev-server` (to start the Vue front-end server).
 
-The app is now running on localhost:3000.
+The app is now running on `localhost:3000`.
 
 
 # Improvements
@@ -23,7 +23,7 @@ The app is now running on localhost:3000.
 
 I did not have enough time to properly implement users and login. Right now, all database operations default to a hardcoded user with an id of 1. I also did not have enough time to implement database operations that do any sort of filtering, so right now all the data just gets fetched up front and stored on the root front end component. Any sorting now has to happen in the app.
 
-Initially, Comments were in a separate table so a user could eventually see comments by other users. I ended up simplifying things for the sake of time, and putting comments on the Favorites model.  
+Initially, Comments were in a separate table so a user could eventually see comments by other users. I ended up simplifying things for the sake of time, and putting comments on the Favorites model.
 
 ### Front-end
 
