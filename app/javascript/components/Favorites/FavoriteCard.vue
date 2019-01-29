@@ -4,12 +4,13 @@
     <div class="favorites">
       <span class="rating">
         <h5 class="title">Your Score: {{ rating ? rating : 'No Score Yet'}}</h5>
-        <input type="range" step=".5" min=".5" max="5" v-model="rating" style="margin-left: 10px;"/>
+        <input type="range" step=".5" min=".5" max="5" v-model="rating" style="margin-left: 10px;" @input="edit"/>
       </span>
       <div>
         <h5 class="title">Comment: </h5>
-        <textarea v-model="comment"></textarea>
+        <textarea v-model="comment" @input="edit"></textarea>
       </div>
+      <button v-if="editing" @click="updateFavorite">Save Changes</button>
     </div>
   </div>
 </template>
@@ -46,8 +47,16 @@
         this.rating = temp.rating
         this.comment = temp.comment
       },
+      edit () {
+        this.editing = true
+      },
       updateFavorite () {
-        console.log('gonna update')
+        axios.patch(`http://localhost:3000/favorites/${this.favorite.id}`, {
+          comment: this.comment,
+          rating: this.rating
+        }).then(res => {
+          console.log(res)
+        })
       }
     },
     created () {
