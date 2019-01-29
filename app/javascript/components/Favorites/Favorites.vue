@@ -40,7 +40,6 @@ export default {
     fetchFilmData () {
       let key = '14a71611'
       axios.get(`http://www.omdbapi.com/?apikey=${key}&i=${this.favorite.omdbid}`).then(res => {
-        console.log('got something: ', res)
         if (res.data.Response === 'True') {
           this.currentFilm = res.data
         }

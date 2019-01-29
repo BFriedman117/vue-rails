@@ -1,6 +1,12 @@
 # README
 
-Simple web app that allows users to query a movie database and save a list of favorites with ratings and comments.
+Simple web app that allows users to query a movie database and save a list of favorites with ratings and comments. This app uses Rails to serve a Vue.js front-end.
+
+# To Run:
+
+`bundle install` and `yarn install`
+`rake db:create` and then `rake db:migrate` to set up the database
+In two separate terminal windows, run `rails s` (to start the Rails server) and `bin/webpack-dev-server` to start the Vue front-end.
 
 # Improvements
 
