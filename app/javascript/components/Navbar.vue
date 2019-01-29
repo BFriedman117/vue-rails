@@ -3,7 +3,7 @@
     <span class="navbar">
       <div v-for="(component, index) in components" :key="index">
         <button class="nav-button" :class="{ 'selected': selected === index }" @click="update(index)">
-          {{ component }}
+          {{ component.displayName }}
         </button>
       </div>
     </span>
@@ -11,17 +11,14 @@
 </template>
 <script>
   export default {
-    props: ['components'],
-    data () {
-      return {
-        selected: null
-      }
-    },
+    props: ['components', 'selected'],
     methods: {
       update (index) {
-        this.selected = index
-        this.$emit('update-component', this.components[index])
+        this.$emit('update-component', index)
       }
+    },
+    created () {
+      console.log(this.selected)
     }
   }
 </script>

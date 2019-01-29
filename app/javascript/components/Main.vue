@@ -4,44 +4,60 @@
       <div>
         <h1 class="header-main">Bad Apples!</h1>
       </div>
-      <div class="header-searchbar">
-        <div class="input-group">
-          <input class="searchbar" placeholder="Search for films..."/>
-          <div class="button-container">
-            <button class="searchbar-button">&#x1f50d</button>
-          </div>
-        </div>
-      </div>
+      <SearchBar @film-found="filmFound"></SearchBar>
     </div>
-    <Navbar :components="components" @update-component="updateComponent"></Navbar>
+    <Navbar :components="components" :selected="selected" @update-component="updateComponent"></Navbar>
     <div class="centered">
-      <component :is="this.component" :favorites="favorites"></component>
+      <component
+      :is="components[selected].name"
+      :favorites="favorites"
+      :favoriteIDs="favoriteIDs"
+      :films="films"
+      :loaded="loaded"
+      :queryText="queryText">
+    </component>
     </div>
   </div>
 </template>
 <script>
   import axios from 'axios'
   import Navbar from './Navbar'
-  import Search from './Search/Search'
+  import SearchResults from './Search/SearchResults'
+  import SearchBar from './Search/SearchBar'
   import Favorites from './Favorites/Favorites'
   export default {
     components: {
-      Search,
+      SearchResults,
+      SearchBar,
       Favorites,
       Navbar
     },
     data () {
       return {
+        userID: 1,
         users: [],
         favorites: [],
+        favoriteIDs: [],
         comments: [],
-        component: 'Search',
-        components: ['Search', 'Favorites']
+        films: [],
+        loaded: false,
+        queryText: '',
+        selected: 0,
+        components: [
+          {
+          name: 'SearchResults',
+          displayName: 'Search Results'
+          },
+          {
+            name: 'Favorites',
+            displayName: 'Favorites'
+          }
+        ]
       }
     },
     methods: {
-      updateComponent (component) {
-        this.component = component
+      updateComponent (index) {
+        this.selected = index
       },
       fetchUsers () {
         return axios.get(`http://localhost:3000/users`).then(res => {
@@ -49,10 +65,16 @@
           this.users = res.data
         })
       },
+      populateIDs (favorites) {
+        favorites.forEach(favorite => {
+          this.favoriteIDs.push(favorite.omdbid)
+        })
+      },
       fetchFavorites () {
         return axios.get(`http://localhost:3000/favorites`).then(res => {
           console.log('got favorites', res.data)
           this.favorites = res.data
+          this.populateIDs(res.data)
         })
       },
       fetchComments () {
@@ -60,6 +82,11 @@
           console.log('got comments', res.data)
           this.comments = res.data
         })
+      },
+      filmFound (film) {
+        console.log('ff', film)
+        this.films.push(film)
+        this.selected = 0
       }
     },
     created () {
@@ -94,45 +121,6 @@
 
   .header-sub {
     font-family: "Impact"
-  }
-
-  .header-searchbar {
-    margin: 30px 30px;
-  }
-
-  .input-group {
-    display: table;
-    border-radius: 5px;
-    vertical-align: middle;
-  }
-
-  .searchbar {
-    display: table-cell;
-    height: 32px;
-    width: 400px;
-    padding: 3px 10px;
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-  }
-
-  .button-container {
-      display: table-cell;
-  }
-
-  .searchbar-button {
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 16px;
-    line-height: 1.25;
-    padding: 9px 6px;
-    border: none;
-    border-radius: 5px;
-    margin: 2px;
-    margin-bottom: 5px;
-    font-family: "Impact";
-    cursor: pointer;
   }
 
   .centered {
