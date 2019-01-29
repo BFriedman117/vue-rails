@@ -4,8 +4,10 @@ Simple web app that allows users to query a movie database and save a list of fa
 
 # To Run:
 
-`bundle install` and `yarn install`
-`rake db:create` and then `rake db:migrate` to set up the database
+`bundle install` and `yarn install` to install Ruby Gems and Node packages.
+
+`rake db:create` and then `rake db:migrate` to set up the database.
+
 In two separate terminal windows, run `rails s` (to start the Rails server) and `bin/webpack-dev-server` to start the Vue front-end.
 
 # Improvements
