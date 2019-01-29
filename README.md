@@ -8,7 +8,7 @@ Simple web app that allows users to query a movie database and save a list of fa
 
 `rake db:create` and then `rake db:migrate` to set up the database.
 
-I didn't have time to properly implement sign-up and log-in, so you will need to create a default user with an id of 1 for the app to work in it's current state.
+I didn't have time to properly implement sign-up and log-in, so you will need to create a default user for the app to work in it's current state.
 
 A simple way to accomplish this is to `brew install httpie` (which allows you to make HTTP requests from the command line - https://httpie.org/) and then run `http POST :3000/users username=testuser password=testpassword`. Actual user details are not important - it just needs to exist.
 
