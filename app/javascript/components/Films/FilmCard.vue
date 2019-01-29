@@ -1,6 +1,6 @@
 <template>
   <div class="film">
-    <span class="film-card" v-if="film.Response === 'True'">
+    <span class="film-card" v-if="film && film.Response === 'True'">
       <img :src="film.Poster.length ? film.Poster : noPosterURL" class="film-poster"/>
       <div class="film-info">
         <h3>{{ film.Title }}</h3>

@@ -5,16 +5,18 @@
       <p>Rotten Tomatoes, but worse!</p>
     </div>
     <Navbar :components="components" @update-component="updateComponent"></Navbar>
-    <component :is="this.component" @></component>
+    <component :is="this.component" :favorites="favorites"></component>
   </div>
 </template>
 <script>
   import axios from 'axios'
   import Navbar from './Navbar'
   import Search from './Search/Search'
+  import Favorites from './Favorites/Favorites'
   export default {
     components: {
       Search,
+      Favorites,
       Navbar
     },
     data () {
@@ -23,7 +25,7 @@
         favorites: [],
         comments: [],
         component: 'Search',
-        components: ['Search']
+        components: ['Search', 'Favorites']
       }
     },
     methods: {
