@@ -41,20 +41,17 @@
         }).then(res => {
           this.$emit('favorite-added', this.film)
           this.added = true
-          console.log('added', res)
         })
       },
       removeFromFavorites () {
         axios.delete(`http://localhost:3000/favorites/${this.id}`).then(res => {
           this.$emit('favorite-removed')
           this.deleted = true
-          console.log('removed', res)
         })
       },
       fetchFilmData () {
         let key = '14a71611'
         axios.get(`http://www.omdbapi.com/?apikey=${key}&i=${this.favorite.omdbid}`).then(res => {
-          console.log('got something: ', res)
           if (res.data.Response === 'True') {
             this.currentFilm = res.data
           }
