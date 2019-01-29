@@ -6,7 +6,7 @@
         <h3>{{ film.Title }}</h3>
         <p>{{ film.Plot }}</p>
         <button class="button" @click="addToFavorites" v-if="!isFavorite">Add To Favorites</button>
-        <button class="button" @click="removeFromFavorites" v-if="isFavorite">Remove From Favorites</button>
+        <button class="button" @click="removeFromFavorites" v-if="isFavorite && id">Remove From Favorites</button>
       </div>
     </span>
     <span class="film-card" v-else>

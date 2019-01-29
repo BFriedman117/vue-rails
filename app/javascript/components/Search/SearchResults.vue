@@ -3,8 +3,17 @@
     <div class="search-container">
       <div v-if="films.length">
         <div v-for="film in films">
-          <FavoriteCard v-if="favoriteIDs.indexOf(film.imdbID) > -1" :favorite="favorites[favoriteIDs.indexOf(film.imdbID)]"></FavoriteCard>
-          <FilmCard v-else :film="film" @favorite-added="$emit('favorite-added', film)" @favorite-removed="$emit('favorite-removed', index)"></FilmCard>
+          <FavoriteCard
+            @favorite-added="$emit('favorite-added', film)"
+            @favorite-removed="$emit('favorite-removed', index)"
+            v-if="favoriteIDs.indexOf(film.imdbID) > -1"
+            :favorite="favorites[favoriteIDs.indexOf(film.imdbID)]">
+          </FavoriteCard>
+          <FilmCard v-else
+            :film="film"
+            @favorite-added="$emit('favorite-added', film)"
+            @favorite-removed="$emit('favorite-removed', index)">
+          </FilmCard>
         </div>
       </div>
       <div v-else>

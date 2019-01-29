@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <FilmCard :film="currentFilm" v-if="currentFilm" :isFavorite="true" :id="favorite.id"></FilmCard>
+  <div class="favorite-container">
+    <FilmCard
+      @favorite-removed="$emit('favorite-removed', index)"
+      :film="currentFilm"
+      v-if="currentFilm"
+      :isFavorite="true"
+      :id="favorite.id"></FilmCard>
     <div class="favorites">
       <span class="rating">
         <h5 class="title">Your Score: {{ rating ? rating : 'No Score Yet'}}</h5>
@@ -19,7 +24,7 @@
   import debounce from 'lodash.debounce'
   import FilmCard from '../Films/FilmCard'
   export default {
-    props: ['favorite', 'film'],
+    props: ['favorite', 'film', 'index'],
     data () {
       return {
           currentFilm: null,
@@ -55,12 +60,11 @@
           comment: this.comment,
           rating: this.rating
         }).then(res => {
-          console.log(res)
+          this.editing = false
         })
       }
     },
     created () {
-      console.log(this.favorite)
       if (this.film) {
         this.currentFilm = Object.assign({}, this.film)
       } else {
@@ -71,8 +75,10 @@
   }
 </script>
 <style>
-  .favorites {
+  .favorite-container {
     background-color: #eaeaea;
+  }
+  .favorites {
     padding: 10px;
   }
 

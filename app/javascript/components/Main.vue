@@ -12,6 +12,8 @@
       :is="components[selected].name"
       :favorites="favorites"
       :favoriteIDs="favoriteIDs"
+      @favorite-added="favoriteAdded"
+      @favorite-removed="favoriteRemoved"
       :films="films"
       :loaded="loaded"
       :queryText="queryText">
@@ -61,7 +63,6 @@
       },
       fetchUsers () {
         return axios.get(`http://localhost:3000/users`).then(res => {
-          console.log('got users', res.data)
           this.users = res.data
         })
       },
@@ -72,19 +73,22 @@
       },
       fetchFavorites () {
         return axios.get(`http://localhost:3000/favorites`).then(res => {
-          console.log('got favorites', res.data)
           this.favorites = res.data
           this.populateIDs(res.data)
         })
       },
       fetchComments () {
         return axios.get(`http://localhost:3000/comments`).then(res => {
-          console.log('got comments', res.data)
           this.comments = res.data
         })
       },
+      favoriteAdded (film) {
+        this.fetchFavorites()
+      },
+      favoriteRemoved (index) {
+        this.favorites.splice(index, 1)
+      },
       filmFound (film) {
-        console.log('ff', film)
         this.films.push(film)
         this.selected = 0
       }
@@ -103,7 +107,6 @@
   .main {
     margin: 0 20%;
     background-color: white;
-    height: 100vh;
   }
 
   .header {
