@@ -2,19 +2,20 @@
   <div>
     <FilmCard :film="currentFilm" v-if="currentFilm" :isFavorite="true" :id="favorite.id"></FilmCard>
     <div class="favorites">
-      <span>
-        <h5>Your Score: {{ rating ? rating : 'No Score Yet'}}</h5>
-        <input type="range" step=".5" min=".5" max="5" v-model="rating"/>
+      <span class="rating">
+        <h5 class="title">Your Score: {{ rating ? rating : 'No Score Yet'}}</h5>
+        <input type="range" step=".5" min=".5" max="5" v-model="rating" style="margin-left: 10px;"/>
       </span>
       <div>
-        <h5>Comment: </h5>
-        <textarea></textarea>
+        <h5 class="title">Comment: </h5>
+        <textarea v-model="comment"></textarea>
       </div>
     </div>
   </div>
 </template>
 <script>
   import axios from 'axios'
+  import debounce from 'lodash.debounce'
   import FilmCard from '../Films/FilmCard'
   export default {
     props: ['favorite', 'film'],
@@ -22,8 +23,9 @@
       return {
           currentFilm: null,
           rating: null,
-          text: '',
-          editing: false
+          comment: '',
+          editing: false,
+          debounce
       }
     },
     components: {
@@ -42,9 +44,10 @@
       populateData () {
         let temp = Object.assign({}, this.favorite)
         this.rating = temp.rating
-        // TODO: Connect comments, possibly move into 'favorites'
-        // this.text = temp.string
-        // TODO: Change 'string' field in comments to more descriptive 'text'
+        this.comment = temp.comment
+      },
+      updateFavorite () {
+        console.log('gonna update')
       }
     },
     created () {
@@ -62,5 +65,16 @@
   .favorites {
     background-color: #eaeaea;
     padding: 10px;
+  }
+
+  .title {
+    margin: 0px 1px;
+    margin-bottom: 2px;
+  }
+
+  .rating {
+    display: flex;
+    flex-direction: row;
+    max-height: 25px;
   }
 </style>
