@@ -44,7 +44,7 @@
         films: [],
         loaded: false,
         queryText: '',
-        selected: 0,
+        selected: 1,
         components: [
           {
           name: 'SearchResults',
@@ -77,13 +77,9 @@
           this.populateIDs(res.data)
         })
       },
-      fetchComments () {
-        return axios.get(`http://localhost:3000/comments`).then(res => {
-          this.comments = res.data
-        })
-      },
       favoriteAdded (film) {
-        this.fetchFavorites()
+        // this.fetchFavorites()
+        console.log('debugging')
       },
       favoriteRemoved (index) {
         this.favorites.splice(index, 1)
@@ -96,8 +92,7 @@
     created () {
       Promise.all([
         // this.fetchUsers(),
-        this.fetchFavorites(),
-        this.fetchComments()
+        this.fetchFavorites()
       ]).then(() => console.log('all done!'))
     }
   }

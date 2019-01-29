@@ -2,6 +2,9 @@
   <div class="centered">
     <div class="search-container">
       <div v-if="films.length">
+        <div>
+          <h3>Your Recent Searches</h3>
+        </div>
         <div v-for="film in films">
           <FavoriteCard
             @favorite-added="$emit('favorite-added', film)"

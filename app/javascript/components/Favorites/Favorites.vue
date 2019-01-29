@@ -6,7 +6,7 @@
     <div v-for="(favorite, index) in favorites" :key="index" class="card-container" v-if="favorites.length">
       <FavoriteCard
         :index="index"
-        @favorite-removed="$emit('favorite-removed', index)"
+        @favorite-removed="favoriteRemoved"
         :favorite="favorite">
       </FavoriteCard>
     </div>
@@ -18,22 +18,24 @@
 <script>
 import FavoriteCard from './FavoriteCard'
 import FilmCard from '../Films/FilmCard'
+import axios from 'axios'
 export default {
   components: {
     FavoriteCard,
     FilmCard
   },
-  props: ['favorites', 'favoriteIDs'],
+  props: ['favoriteIDs'],
   data () {
     return {
       currentFavorites: [],
       favoriteFilms: [],
-      loaded: false
+      loaded: false,
+      favorites: []
     }
   },
   methods: {
-    updateFavorite () {
-
+    favoriteRemoved (index) {
+      this.favorites.splice(index, 1)
     },
     fetchFilmData () {
       let key = '14a71611'
@@ -43,7 +45,15 @@ export default {
           this.currentFilm = res.data
         }
       })
+    },
+    fetchFavorites () {
+      return axios.get(`http://localhost:3000/favorites`).then(res => {
+        this.favorites = res.data
+      })
     }
+  },
+  created () {
+    this.fetchFavorites()
   }
 }
 </script>

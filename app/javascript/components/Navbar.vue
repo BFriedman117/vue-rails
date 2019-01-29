@@ -16,9 +16,6 @@
       update (index) {
         this.$emit('update-component', index)
       }
-    },
-    created () {
-      console.log(this.selected)
     }
   }
 </script>

@@ -12,4 +12,8 @@ Initially, Comments were in a separate table so a user could see comments by oth
 
 ### Front-end
 
-Given more time, I would have implemented a Vuex store, which would have dramatically simplified how data gets passed around and mutated. I would also implement Vue Router so a user could directly navigate to a route such as app/favorites instead of needing to start from the same view every time. 
+Given more time, I would have implemented a Vuex store, which would have dramatically simplified how data gets passed around and mutated. It would also allow me to move all http requests to the store.
+
+I would also implement Vue Router so a user could directly navigate to a route such as app/favorites instead of needing to start from the same view every time.
+
+Of course, the CSS is in need of serious work as well. Given more time, I would be able to set up more reusable styles such as global stylesheets or third party libraries such as Bootstrap.
